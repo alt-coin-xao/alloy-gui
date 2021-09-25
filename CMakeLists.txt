@@ -91,10 +91,11 @@ find_package(Qt5 COMPONENTS Gui Widgets Network DBus REQUIRED)
 ##
 include(ExternalProject)
 
-ExternalProject_Add(alloylibs
-  URL https://github.com/alt-coin-xao/alloy/archive/refs/tags/v.3.2-beta.tar.gz
-  URL_HASH MD5=0256c480f509606ad8636bc70af177dc
-  INSTALL_COMMAND ""
+# URL https://github.com/alt-coin-xao/alloy/archive/refs/tags/v.3.2-beta.tar.gz
+# URL_HASH MD5=0256c480f509606ad8636bc70af177dc
+ExternalProject_Add(alloylib
+  URL /home/gjones/src/alloy.tar.gz
+  CMAKE_ARGS -DCMAKE_INSTALL_PREFIX:PATH=<INSTALL_DIR>
   STEP_TARGETS build
   )
 ###

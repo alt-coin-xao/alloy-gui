@@ -1,47 +1,22 @@
-ExternalProject_Get_Property(alloylibs SOURCE_DIR)
-MESSAGE(STATUS "#############################################################")
-MESSAGE(STATUS "#############################################################")
-MESSAGE(STATUS "#############################################################")
-MESSAGE(STATUS "#############################################################")
-MESSAGE(STATUS "#############################################################")
-MESSAGE(STATUS "#############################################################")
-MESSAGE(STATUS "#############################################################")
-MESSAGE(STATUS "#############################################################")
-MESSAGE(STATUS "#############################################################")
-MESSAGE(STATUS "#############################################################")
-MESSAGE(STATUS "Src ${SOURCE_DIR}")
-ExternalProject_Get_Property(alloylibs BINARY_DIR)
-MESSAGE(STATUS "Bin ${BINARY_DIR}")
-
-
-# libBlockchainExplorer.a
-# libCommon.a
-# libCrypto.a
-# libCryptoNoteCore.a
-# libHttp.a
-# libInProcessNode.a
-# libJsonRpcServer.a
-# libLogging.a
-# libNodeRpcProxy.a
-# libP2P.a
-# libPaymentGate.a
-# libRpc.a
-#  libSerialization.a
-# libSystem.a
-# libTransfers.a
-# libWallet.a
+ExternalProject_Get_Property(alloylib INSTALL_DIR)
+MESSAGE(STATUS "Alloy Core Install Directory ${INSTALL_DIR}")
+SET(ALLOY_HEADERS_DIR "${INSTALL_DIR}/include/alloy")
+SET(ALLOY_LIBRARY_DIR "${INSTALL_DIR}/lib/alloy")
 
 set(CMAKE_AUTOMOC ON)
 set_property(SOURCE qrc_resources.cpp PROPERTY SKIP_AUTOMOC ON)
+
+include_directories(${ALLOY_HEADERS_DIR})
+link_directories(${ALLOY_LIBRARY_DIR})
 
 #INCLUDE_DIRECTORIES(QT5::Gui QT5::Widgets QT5::Network QT5::DBus))
 ################################################################
 ################################################################
 ### Project Fikes
 ###
-file(GLOB_RECURSE SOURCES ${CMAKE_SOURCE_DIR}src/*.cpp)
-file(GLOB_RECURSE HEADERS ${CMAKE_SOURCE_DIR}src/*.h)
-file(GLOB_RECURSE FORMS ${CMAKE_SOURCE_DIR}src/Gui/*.ui)
+file(GLOB_RECURSE SOURCES ${CMAKE_SOURCE_DIR}/src/*.cpp)
+file(GLOB_RECURSE HEADERS ${CMAKE_SOURCE_DIR}/src/*.h)
+file(GLOB_RECURSE FORMS ${CMAKE_SOURCE_DIR}/src/Gui/*.ui)
 ###
 ################################################################
 
@@ -49,20 +24,20 @@ file(GLOB_RECURSE FORMS ${CMAKE_SOURCE_DIR}src/Gui/*.ui)
 ################################################################
 ### Environment Specific
 ###
-if(MSVC)
+#if(MSVC)
   include_directories(Platform/Windows)
   set(SOURCES ${SOURCES} ${CMAKE_SOURCE_DIR}/Platform/Windows/ApplicationEventHandler.cpp)
-elseif(APPLE)
-  include_directories(Platform/OSX)
-  include_directories(Platform/Posix)
-  set(SOURCES ${SOURCES} ${CMAKE_SOURCE_DIR}/Platform/OSX/ApplicationEventHandler.mm)
-  set(SOURCES ${SOURCES} ${CMAKE_SOURCE_DIR}/Platform/Posix/System/MemoryMappedFile.cpp)
-else()
+#elseif(APPLE)
+#  include_directories(Platform/OSX)
+#  include_directories(Platform/Posix)
+#  set(SOURCES ${SOURCES} ${CMAKE_SOURCE_DIR}/Platform/OSX/ApplicationEventHandler.mm)
+#  set(SOURCES ${SOURCES} ${CMAKE_SOURCE_DIR}/Platform/Posix/System/MemoryMappedFile.cpp)
+#else()
   include_directories(Platform/Linux)
   include_directories(Platform/Posix)
   set(SOURCES ${SOURCES} ${CMAKE_SOURCE_DIR}/Platform/Linux/ApplicationEventHandler.cpp)
   set(SOURCES ${SOURCES} ${CMAKE_SOURCE_DIR}/Platform/Posix/System/MemoryMappedFile.cpp)
-endif()
+#endif()
 
 if (APPLE)
 # qt5_use_modules(${PROJECT_NAME} PrintSupport)
@@ -84,8 +59,6 @@ set(QRC ${CMAKE_SOURCE_DIR}/src/resources.qrc)
 #
 qt5_wrap_ui(UIS ${FORMS})
 qt5_add_resources(RCC ${QRC})
-#
-#
 #
 
 
