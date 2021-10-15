@@ -22,6 +22,11 @@ HunterGate(
     SHA1 "4549223ba9d965c1cd332b2e99d566cfe010e06a"
 )
 
+#HunterGate(
+#    URL  "file:///home/gjones/src/hunter.tar.gz"
+#    SHA1 "731e3ff3eaa549f3b79863f036f7dca687be8412"
+#)
+
 execute_process(
   COMMAND git log -1 --pretty=format:%h
   WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
@@ -46,8 +51,8 @@ set(BUILD_SHARED_LIBS ${HUNTER_BUILD_SHARED_LIBS})
 #SET(Boost_USE_STATIC_LIBS ON)
 #SET(Boost_USE_STATIC_RUNTIME ON)
 
-hunter_add_package(Boost COMPONENTS program_options filesystem)
-find_package(Boost CONFIG REQUIRED program_options filesystem)
+hunter_add_package(Boost COMPONENTS system)
+find_package(Boost CONFIG REQUIRED system)
 ###
 ###############################################################
 

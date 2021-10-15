@@ -1,13 +1,15 @@
 ExternalProject_Get_Property(alloylib INSTALL_DIR)
 MESSAGE(STATUS "Alloy Core Install Directory ${INSTALL_DIR}")
 SET(ALLOY_HEADERS_DIR "${INSTALL_DIR}/include/alloy")
+SET(OTHER_HEADERS_DIR "${INSTALL_DIR}/src/alloylib/include")
 SET(ALLOY_LIBRARY_DIR "${INSTALL_DIR}/lib/alloy")
 
 set(CMAKE_AUTOMOC ON)
 set_property(SOURCE qrc_resources.cpp PROPERTY SKIP_AUTOMOC ON)
 
-include_directories(${ALLOY_HEADERS_DIR})
-link_directories(${ALLOY_LIBRARY_DIR})
+include_directories(${ALLOY_HEADERS_DIR} Boost::date_time Boost::filesystem Boost::program_options Boost::regex Boost::serialization Boost::system Boost::thread Boost::chrono)
+include_directories(${OTHER_HEADERS_DIR})
+link_directories(${ALLOY_LIBRARY_DIR} Boost::date_time Boost::filesystem Boost::program_options Boost::regex Boost::serialization Boost::system Boost::thread Boost::chrono)
 
 #INCLUDE_DIRECTORIES(QT5::Gui QT5::Widgets QT5::Network QT5::DBus))
 ################################################################
